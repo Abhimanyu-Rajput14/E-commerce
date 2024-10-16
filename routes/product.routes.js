@@ -58,6 +58,7 @@ router.put("/products/:id", async (req, res) => {
   if (body.description) product.description = body.description;
 
   await product.save();
+  req.flash("success", "Product updated successfully!");
   res.redirect("/products");
 });
 
@@ -72,7 +73,7 @@ router.delete("/products/:id", async (req, res) => {
 
   // Then, delete the product
   await ProductModel.findByIdAndDelete(id);
-
+  req.flash("success", "Product deleted successfully!");
   res.redirect("/products");
 });
 

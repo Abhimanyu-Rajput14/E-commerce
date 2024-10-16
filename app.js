@@ -4,9 +4,12 @@ const app = express();
 const mongoose = require("mongoose");
 const ejsMate = require("ejs-mate");
 const methodOverride = require("method-override");
-const PORT = 5000;
 const session = require("express-session");
 const flash = require("connect-flash");
+const passport = require("passport");
+const Strategy = require("passport-local");
+const UserModel = require("./models/User.model");
+const PORT = 5000;
 
 mongoose
   .connect("mongodb://127.0.0.1:27017/E-Com-DB")
@@ -19,17 +22,23 @@ app.use(methodOverride("_method"));
 
 app.use(
   session({
-    secret: "No secret!",
-    resave: false,
-    saveUninitialized: true,
+    secret: "some-secret",
   })
 );
 app.use(flash());
 
-app.get("/session", (req, res) => {
-  req.session.visited = true;
-  console.log(req.session);
-  res.send(req.session);
+// setup passport
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new Strategy(UserModel.authenticate()));
+passport.serializeUser(UserModel.serializeUser());
+passport.deserializeUser(UserModel.deserializeUser());
+
+app.use((req, res, next) => {
+  app.locals.success = req.flash("success");
+  app.locals.error = req.flash("error");
+  app.locals.user = req.user;
+  next();
 });
 
 // Set Public Folder
@@ -47,8 +56,13 @@ app.get("/", (req, res) => {
 
 const productRoutes = require("./routes/product.routes");
 const reviewRoutes = require("./routes/review.routes");
+const authRoutes = require("./routes/auth.routes");
+const cartRoutes = require("./routes/cart.routes");
+
 app.use(productRoutes);
 app.use(reviewRoutes);
+app.use(authRoutes);
+app.use(cartRoutes);
 
 // Server Listen
 app.listen(PORT, () => {
