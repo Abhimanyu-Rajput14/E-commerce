@@ -12,7 +12,7 @@ const Strategy = require('passport-local');
 const UserModel = require('./models/User.model');
 const MongoStore = require('connect-mongo');
 const { DB_URL: mongoURL, SESSION_SECRET, PORT: port } = process.env;
-const PORT = port || 5000;
+const PORT = port || 4000;
 
 mongoose
   .connect(mongoURL)
@@ -90,6 +90,6 @@ app.get('*', (req, res) => {
 })
 
 // Server Listen
-app.listen(PORT, () => {
+app.listen(Number(PORT), () => {
   console.log(`Server running on port ${PORT}`);
 });
