@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const app = express();
@@ -10,8 +11,8 @@ const passport = require('passport');
 const Strategy = require('passport-local');
 const UserModel = require('./models/User.model');
 const MongoStore = require('connect-mongo');
-const PORT = 5000;
-const mongoURL = "mongodb://127.0.0.1:27017/E-Com-DB";
+const { DB_URL: mongoURL, SESSION_SECRET, PORT: port } = process.env;
+const PORT = port || 5000;
 
 mongoose
   .connect(mongoURL)
@@ -21,10 +22,11 @@ mongoose
 
 // Middleware
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(methodOverride('_method'));
 
 app.use(session({
-  secret: "some-secret",
+  secret: SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
   store: MongoStore.create({

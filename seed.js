@@ -1,9 +1,11 @@
+require('dotenv').config();
 const mongoose = require("mongoose");
 const ProductModel = require("./models/Product.model");
 const ReviewModel = require("./models/Review.model");
+const { DB_URL: mongoURL } = process.env
 
 mongoose
-  .connect("mongodb://127.0.0.1:27017/E-Com-DB")
+  .connect(mongoURL)
   .then(() => console.log("Seed DB connected!"))
   .catch((err) => console.log(err));
 
