@@ -1,45 +1,59 @@
-<nav class="navbar navbar-expand-lg bg-primary navbar-dark text-white fixed-top">
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #2c3e50; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);">
   <div class="container">
-    <a class="navbar-brand" href="#">E-Commerce</a>
+    <!-- Brand Logo -->
+    <a class="navbar-brand fw-bold" href="/" style="font-size: 1.5rem; color: #ecf0f1;">
+      <i class="fas fa-store"></i> Cartify
+    </a>
+
+    <!-- Toggler for Mobile View -->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
+    <!-- Navbar Links -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/">Home</a>
+          <a class="nav-link active" aria-current="page" href="/" style="color: #ecf0f1;">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/products">Products</a>
+          <a class="nav-link" href="/products" style="color: #ecf0f1;">Products</a>
         </li>
-        <% if (user && user.role==='seller' ) { %>
+        <% if (user && user.role === 'seller') { %>
           <li class="nav-item">
-            <a class="nav-link" href="/products/new">Add Product</a>
+            <a class="nav-link" href="/products/new" style="color: #ecf0f1;">Add Product</a>
           </li>
-          <% } %>
+        <% } %>
       </ul>
 
+      <!-- Right-Aligned User Section -->
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <% if (!user) { %>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/login">Login</a>
+            <a class="nav-link btn btn-outline-light px-3 rounded-pill" href="/login">Login</a>
           </li>
-          <% } else{ %>
-            <li class="nav-item">
-              <a class="nav-link active pb-0">Hello <%= user.username %></a>
-            </li>
-            <li class="nav-item">
-              <a href="/cartItems" class="nav-link"><i class="fas fa-shopping-cart"></i>
-                <sup><span class="badge bg-danger">
-                    <%= productQuantity %>
-                  </span></sup>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="/logout">Logout</a>
-            </li>
-            <% } %>
+        <% } else { %>
+          <!-- Welcome Message -->
+          <li class="nav-item">
+            <span class="nav-link active" style="color: #ecf0f1;">Hello, <%= user.username %>!</span>
+          </li>
+
+          <!-- Shopping Cart with Badge -->
+          <li class="nav-item">
+            <a href="/cartItems" class="nav-link position-relative" style="color: #ecf0f1;">
+              <i class="fas fa-shopping-cart"></i>
+              <span class="badge rounded-pill bg-danger position-absolute top-0 start-100 translate-middle">
+                <%= productQuantity %>
+              </span>
+            </a>
+          </li>
+
+          <!-- Logout Button -->
+          <li class="nav-item">
+            <a class="nav-link btn btn-outline-light px-3 rounded-pill" href="/logout">Logout</a>
+          </li>
+        <% } %>
       </ul>
     </div>
   </div>

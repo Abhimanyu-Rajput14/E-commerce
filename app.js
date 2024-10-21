@@ -14,6 +14,8 @@ const MongoStore = require('connect-mongo');
 const { DB_URL: mongoURL, SESSION_SECRET, PORT: port } = process.env;
 const PORT = port || 4000;
 
+const NODE_ENV = "production";
+
 mongoose
   .connect(mongoURL)
   .then(() => console.log("DB connected!"))
@@ -78,16 +80,29 @@ const authRoutes = require('./routes/auth.routes');
 const cartRoutes = require('./routes/cart.routes');
 
 const wishListAPI = require('./routes/api/wishlist.routes')
+const paymentAPI = require('./routes/api/payment.routes');
 
 app.use(productRoutes);
 app.use(reviewRoutes);
 app.use(authRoutes);
 app.use(cartRoutes);
 app.use(wishListAPI);
+app.use(paymentAPI);
 
 app.get('*', (req, res) => {
   res.render('404')
 })
+
+app.use((err, req, res, next) => {
+  console.log(err);
+  if (err) {
+    if (NODE_ENV === "development") {
+      return res.render("error", { err: err.message });
+    } else {
+      return res.render("error", { err: "Something went wrong!" });
+    }
+  }
+});
 
 // Server Listen
 app.listen(Number(PORT), () => {
