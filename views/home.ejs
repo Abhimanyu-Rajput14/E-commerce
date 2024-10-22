@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Cartify - Elevate Your Shopping Experience with a vast collection of products.">
     <title>Cartify - Elevate Your Shopping Experience</title>
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
@@ -16,11 +17,14 @@
             font-family: 'Helvetica Neue', Arial, sans-serif;
             background-color: #181818;
             color: #f8f9fa;
+            margin: 0;
+            padding: 0;
         }
 
         .cover-container {
             max-width: 960px;
             padding: 2rem;
+            margin: auto; /* Center the container */
         }
 
         header {
@@ -85,6 +89,26 @@
             font-size: 0.9rem;
             color: #adb5bd;
         }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem; /* Adjust heading size for smaller screens */
+            }
+
+            p.lead {
+                font-size: 1rem; /* Adjust paragraph size for smaller screens */
+            }
+
+            .btn-secondary {
+                width: 100%; /* Make button full width on mobile */
+                padding: 1rem; /* Increase padding for touch targets */
+            }
+
+            header {
+                padding: 0 1rem; /* Add padding to header */
+            }
+        }
     </style>
 </head>
 
@@ -99,10 +123,10 @@
                     <a class="nav-link" href="/products">Products</a>
                     <% if (!user) { %>
                         <a class="nav-link" href="/login">Login</a>
-                        <a class="nav-link" href="/register">Register</a>
-                        <% } else { %>
-                            <a class="nav-link" href="/logout">Logout</a>
-                            <% } %>
+                        <a class="nav-link" href="/signup">SignUp</a>
+                    <% } else { %>
+                        <a class="nav-link" href="/logout">Logout</a>
+                    <% } %>
                 </nav>
             </div>
         </header>
@@ -110,8 +134,7 @@
         <!-- Main Content Section -->
         <main class="px-3">
             <h1>Welcome to Cartify</h1>
-            <p class="lead">Discover our extensive collection of products.<br> Add your favorites and share your
-                thoughts with others!</p>
+            <p class="lead">Discover our extensive collection of products.<br> Add your favorites and share your thoughts with others!</p>
             <a href="/products" class="btn btn-secondary mt-3">Explore Products</a>
         </main>
 

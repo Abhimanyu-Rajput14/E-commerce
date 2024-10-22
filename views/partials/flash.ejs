@@ -1,13 +1,36 @@
 <% if (success && success.length) { %>
-  <div class="alert alert-success alert-dismissible fade show w-50 mx-auto mt-3" role="alert" style="box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+  <div class="alert alert-success alert-dismissible fade show w-75 mx-auto mt-3" role="alert" style="box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
     <%= success %>
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
 <% } %>
 
 <% if (error && error.length) { %>
-  <div class="alert alert-danger alert-dismissible fade show w-50 mx-auto mt-3" role="alert" style="box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+  <div class="alert alert-danger alert-dismissible fade show w-75 mx-auto mt-3" role="alert" style="box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
     <%= error %>
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
 <% } %>
+
+<script>
+  // Auto fade alerts after 5 seconds
+  setTimeout(() => {
+    const alerts = document.querySelectorAll('.alert');
+    alerts.forEach(alert => {
+      alert.classList.remove('show');
+      alert.classList.add('fade');
+      setTimeout(() => {
+        alert.style.display = 'none'; // Hide the alert after fading
+      }, 150); // Match the fade-out duration
+    });
+  }, 5000); // Adjust the time in milliseconds (5000ms = 5 seconds)
+</script>
+
+<!-- Minimal CSS for customization -->
+<style>
+  @media (max-width: 576px) {
+    .alert {
+      width: 90%; /* Adjust alert width for smaller screens */
+    }
+  }
+</style>

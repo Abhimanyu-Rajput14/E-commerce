@@ -39,15 +39,19 @@
             <span class="nav-link active" style="color: #ecf0f1;">Hello, <%= user.username %>!</span>
           </li>
 
-          <!-- Shopping Cart with Badge -->
-          <li class="nav-item">
-            <a href="/cartItems" class="nav-link position-relative" style="color: #ecf0f1;">
-              <i class="fas fa-shopping-cart"></i>
-              <span class="badge rounded-pill bg-danger position-absolute top-0 start-100 translate-middle">
-                <%= productQuantity %>
-              </span>
-            </a>
-          </li>
+          <!-- Shopping Cart with Badge (Visible Only to Buyers) -->
+          <% if (user.role === 'buyer') { %>
+            <li class="nav-item position-relative">
+              <a href="/cartItems" class="nav-link" style="color: #ecf0f1;">
+                <i class="fas fa-shopping-cart"></i>
+                <% if (productQuantity > 0) { %>
+                  <span class="badge rounded-pill bg-danger position-absolute top-0 start-100 translate-middle" style="font-size: 0.75rem;">
+                    <%= productQuantity %>
+                  </span>
+                <% } %>
+              </a>
+            </li>
+          <% } %>
 
           <!-- Logout Button -->
           <li class="nav-item">

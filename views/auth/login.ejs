@@ -1,25 +1,56 @@
 <% layout('layouts/boilerplate') -%>
 
-  <div class="row">
-    <div class="col col-6 mx-auto">
+<div class="container-fluid d-flex flex-column justify-content-center" style="min-height: calc(100vh - 150px); padding: 20px;">
+  <div class="row justify-content-center w-100">
+    <div class="col-12 col-md-6 col-lg-5">
       <%- include('../partials/flash') %>
-        <form method="post" action="/login">
-          <div class="mb-3">
-            <label for="username-inp" class="form-label">Username</label>
-            <input name="username" type="text" class="form-control" id="username-inp" aria-describedby="emailHelp">
-          </div>
 
-          <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Password</label>
-            <input name="password" type="password" class="form-control" id="exampleInputPassword1">
-          </div>
-          <button type="submit" class="btn btn-primary">Login</button>
-        </form>
+      <!-- Page Title -->
+      <h2 class="text-center mb-4">Login Page</h2>
 
-        <br>
-        <p>
-          New user? Please
-          <a href="/signup">Signup</a>
-        </p>
+      <form method="post" action="/login" class="p-4 border rounded bg-light shadow-sm">
+        <!-- Username Input -->
+        <div class="mb-3">
+          <label for="username-inp" class="form-label">Username</label>
+          <input name="username" type="text" class="form-control" id="username-inp" required>
+        </div>
+
+        <!-- Password Input -->
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Password</label>
+          <input name="password" type="password" class="form-control" id="exampleInputPassword1" required>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary w-100">Login</button>
+      </form>
+
+      <!-- Signup Link -->
+      <div class="text-center mt-3">
+        <p>New user? <a href="/signup" class="text-decoration-none">SignUp</a></p>
+      </div>
     </div>
   </div>
+</div>
+
+<!-- Minimal CSS for customization -->
+<style>
+  .container-fluid {
+    padding: 0; /* Removes default padding */
+  }
+  .form-label {
+    font-weight: 500;
+  }
+  form {
+    max-width: 400px; /* Set max width for the form */
+    margin: 0 auto; /* Center the form */
+  }
+  h2 {
+    margin-bottom: 20px; /* Space between the title and the form */
+  }
+  @media (max-width: 576px) {
+    .container-fluid {
+      padding: 15px; /* Adjust padding for smaller screens */
+    }
+  }
+</style>
